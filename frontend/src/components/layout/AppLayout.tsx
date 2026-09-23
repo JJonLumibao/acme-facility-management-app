@@ -27,6 +27,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import type { ReactElement } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import AssistantPanel from '../assistant/AssistantPanel';
 import { getEngineer, updateEngineer } from '../../services/engineerService';
 import type { Role } from '../../types';
 import { ROLE_LABELS } from '../../utils/format';
@@ -163,6 +164,8 @@ export default function AppLayout() {
       <main className="app-content">
         <Outlet />
       </main>
+
+      <AssistantPanel />
     </div>
   );
 }

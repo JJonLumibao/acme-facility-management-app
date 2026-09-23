@@ -125,6 +125,10 @@ class UpdateIncidentRequest(BaseModel):
     seat_id: Optional[int] = None
 
 
+class AssistantRequest(BaseModel):
+    message: Optional[str] = "Where do issues happen most?"
+
+
 class CreateNoteRequest(BaseModel):
     message: Optional[str] = "Its very hot in here"
 
@@ -372,6 +376,18 @@ async def delete_note(request: Request, note_id: int) -> Response:
 # --- dashboard -----------------------------------------------------------------------------------
 @app.get("/dashboard/summary", tags=["dashboard"], dependencies=AUTH)
 async def dashboard_summary(request: Request) -> Response:
+    return await _forward(request)
+
+
+# --- assistant -----------------------------------------------------------------------------------
+@app.get("/assistant", tags=["assistant"], dependencies=AUTH)
+async def assistant_suggestions(request: Request) -> Response:
+    return await _forward(request)
+
+
+@app.post("/assistant", tags=["assistant"], dependencies=AUTH)
+async def assistant(request: Request, payload: AssistantRequest = Body(...)) -> Response:
+    del payload
     return await _forward(request)
 
 

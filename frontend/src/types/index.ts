@@ -251,3 +251,14 @@ export const INCIDENT_STATUSES: IncidentStatus[] = ['open', 'in_progress', 'bloc
 export const ACTIVE_STATUSES: IncidentStatus[] = ['open', 'in_progress', 'blocked'];
 
 export const INCIDENT_PRIORITIES: IncidentPriority[] = ['low', 'medium', 'high', 'critical'];
+
+export interface AssistantLink {
+  label: string;
+  to: string;
+}
+
+export interface AssistantReply {
+  answer: string;
+  links: AssistantLink[];
+  suggestions: string[];
+}

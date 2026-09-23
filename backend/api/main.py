@@ -8,6 +8,7 @@ from psycopg import errors as pg_errors
 from auth.middleware import AuthError
 from db import init_schema
 from routes import (
+    assistant_routes,
     auth_routes,
     catalog_routes,
     dashboard_routes,
@@ -35,6 +36,7 @@ facility_routes.register(router)
 incident_routes.register(router)
 note_routes.register(router)
 dashboard_routes.register(router)
+assistant_routes.register(router)
 
 
 _DEMO_DATA_CHECKED = False

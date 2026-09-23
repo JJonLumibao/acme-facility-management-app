@@ -2,6 +2,7 @@
 from typing import Any, Dict
 
 from models import dashboard_model
+from utils.permissions import report_scope
 from utils.responses import success
 
 
@@ -12,11 +13,7 @@ def get_summary(request: Dict[str, Any]) -> Dict[str, Any]:
     Organisation-wide sections (hotspots, assignee distribution, communication) are admin-only.
     """
     user = request["user"]
-    scope: Dict[str, Any] = {}
-    if user["role"] == "employee":
-        scope["reported_by"] = user["id"]
-    elif user["role"] == "engineer":
-        scope["assigned_to"] = user["id"]
+    scope = report_scope(user)
     is_admin = user["role"] == "facility_admin"
 
     return success({

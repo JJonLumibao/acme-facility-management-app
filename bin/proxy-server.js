@@ -101,7 +101,10 @@ const server = http.createServer((req, res) => {
       'accept': headers.accept || 'application/json',
       'content-type': headers['content-type'] || 'application/json',
       'user-agent': headers['user-agent'] || 'proxy-server',
-      'host': target.host
+      'host': target.host,
+      // Forward credentials so authenticated API calls work through the proxy.
+      ...(headers.authorization && { 'authorization': headers.authorization }),
+      ...(headers['x-auth-token'] && { 'x-auth-token': headers['x-auth-token'] })
     }
   };
 

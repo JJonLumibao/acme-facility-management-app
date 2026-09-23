@@ -1,0 +1,21 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-toolbar-title {
+  flex-grow: 1;
+  font-weight: 700;
+}
+
+.app-nav-links {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.app-content {
+  flex: 1;
+  width: 100%;
+}

@@ -1,0 +1,19 @@
+.facility-tree {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.facility-floor-block {
+  margin-left: var(--spacing-lg);
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.facility-seat-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--spacing-sm) 0;
+}

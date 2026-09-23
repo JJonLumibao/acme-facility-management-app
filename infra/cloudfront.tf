@@ -131,8 +131,10 @@ resource "aws_s3_bucket_policy" "this" {
         Principal = {
           Service = data.aws_service_principal.cloudfront.name
         }
-        Action   = "s3:GetObject"
-        Resource = format("%s/*", aws_s3_bucket.this.arn)
+        # ListBucket makes S3 answer 404 (not 403) for unknown paths, so the 404 -> /index.html rule
+        # above serves the React app for deep links like /incidents/5 on page refresh.
+        Action   = ["s3:GetObject", "s3:ListBucket"]
+        Resource = [aws_s3_bucket.this.arn, format("%s/*", aws_s3_bucket.this.arn)]
         Condition = {
           StringEquals = {
             "AWS:SourceArn" = format(

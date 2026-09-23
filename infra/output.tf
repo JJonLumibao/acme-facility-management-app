@@ -45,3 +45,9 @@ output "jupyter_url" {
   description = "The URL of the JupyterHub instance"
   value       = data.aws_caller_identity.this.id == "000000000000" ? "http://localhost:8888" : try(one(aws_eks_cluster.this.*.endpoint), null)
 }
+
+output "demo_password" {
+  description = "Password for the demo accounts seeded into the cloud database (e.g. admin@acme.inc)"
+  value       = random_password.demo.result
+  sensitive   = true
+}

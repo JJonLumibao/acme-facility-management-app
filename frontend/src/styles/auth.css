@@ -1,0 +1,80 @@
+.auth-shell {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eef2ff 0%, #f4f6f8 100%);
+  padding: var(--spacing-lg);
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  padding: var(--spacing-lg);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: var(--spacing-md);
+}
+
+/* Decorative drifting circles, confined to the bottom half behind the card. */
+.auth-bubbles {
+  position: absolute;
+  inset: 50% 0 0 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.auth-bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation-name: auth-bubble-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.auth-bubble-blue {
+  background: radial-gradient(circle at 35% 35%, rgba(37, 99, 235, 0.35), rgba(37, 99, 235, 0.05) 70%);
+}
+
+.auth-bubble-violet {
+  background: radial-gradient(circle at 35% 35%, rgba(124, 58, 237, 0.3), rgba(124, 58, 237, 0.04) 70%);
+}
+
+@keyframes auth-bubble-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, 40px) scale(0.85);
+  }
+  25% {
+    opacity: 0.8;
+  }
+  55% {
+    opacity: 0.8;
+    transform: translate(var(--drift), -50px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--drift) * -0.5), -130px) scale(0.9);
+  }
+}
+
+/* Respect users who ask for less motion: show a calm, static version instead. */
+@media (prefers-reduced-motion: reduce) {
+  .auth-bubble {
+    animation: none;
+    opacity: 0.4;
+  }
+}

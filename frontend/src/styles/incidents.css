@@ -1,0 +1,298 @@
+.incident-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.incident-filters .MuiFormControl-root {
+  min-width: 160px;
+}
+
+.incident-card {
+  transition:
+    box-shadow 150ms ease,
+    transform 150ms ease;
+  cursor: pointer;
+}
+
+.incident-card:hover {
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.incident-workflow {
+  padding: var(--spacing-md) 0;
+}
+
+.incident-workflow-blocked .MuiStepIcon-root {
+  color: var(--status-blocked);
+}
+
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.note-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.note-item-meta {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+/* --- List: quick views + card details -------------------------------------------------------- */
+.incident-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.incident-id {
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.incident-card-title {
+  font-size: 1.05rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.incident-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--spacing-md);
+  row-gap: 2px;
+  margin-top: 6px;
+}
+
+.incident-card-reason {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  color: var(--status-blocked);
+}
+
+.empty-state {
+  padding: var(--spacing-lg);
+  text-align: center;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* --- Report form: category tiles + location ---------------------------------------------------- */
+.category-picker section + section {
+  margin-top: var(--spacing-md);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.category-tile {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 4px;
+  padding: 12px !important;
+  text-align: left;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--color-surface) !important;
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.category-tile:hover {
+  border-color: var(--color-primary) !important;
+}
+
+.category-tile-selected {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.category-tile-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.category-tile-hint {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  line-height: 1.3;
+}
+
+.incident-location-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+}
+
+@media (max-width: 600px) {
+  .incident-location-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Detail page ------------------------------------------------------------------------------ */
+.incident-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .incident-detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.incident-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-sm) var(--spacing-lg);
+  margin: var(--spacing-md) 0 0;
+}
+
+.incident-facts dt {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.incident-facts dd {
+  margin: 2px 0 0;
+  font-size: 0.95rem;
+}
+
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.note-item-mine {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.note-item-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.note-item-message {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Time tracking milestones */
+.milestone-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.milestone-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.milestone-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.9rem;
+}
+
+.milestone-label {
+  flex: 1;
+}
+
+.milestone-pending .milestone-label,
+.milestone-pending .milestone-value {
+  color: var(--color-muted);
+}
+
+.milestone-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Activity timeline */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.timeline-item {
+  display: flex;
+  gap: var(--spacing-sm);
+  position: relative;
+  padding-bottom: var(--spacing-md);
+}
+
+.timeline-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline-icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  color: var(--color-muted);
+}
+
+.timeline-body {
+  min-width: 0;
+}
+
+.timeline-details {
+  font-style: italic;
+  overflow-wrap: anywhere;
+}

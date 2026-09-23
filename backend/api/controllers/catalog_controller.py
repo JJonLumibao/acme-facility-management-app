@@ -1,6 +1,7 @@
 """Reference data the frontend needs to render forms and workflow actions consistently with the API."""
 from typing import Any, Dict
 
+import seed
 from utils import workflow
 from utils.catalog import CATEGORIES, DEPARTMENTS
 from utils.responses import success
@@ -13,4 +14,6 @@ def get_catalog(request: Dict[str, Any]) -> Dict[str, Any]:
         "departments": DEPARTMENTS,
         "statuses": [{"key": key, "label": workflow.STATUS_LABELS[key]} for key in workflow.STATUSES],
         "transitions": workflow.TRANSITIONS_BY_ROLE.get(request["user"]["role"], {}),
+        # Lets the frontend show the admin-only "Reset demo data" action.
+        "demo_reset_enabled": request["user"]["role"] == "facility_admin" and seed.demo_reset_enabled(),
     })

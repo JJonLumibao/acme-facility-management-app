@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 import { useAuth } from '../context/AuthContext';
 import { ApiError } from '../services/apiClient';
 import ErrorAlert from '../components/common/ErrorAlert';
@@ -16,6 +17,8 @@ import '../styles/auth.css';
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  // e.g. "Demo data restored. Sign in again." after an admin resets the demo data.
+  const notice = (useLocation().state as { notice?: string } | null)?.notice;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +45,11 @@ export default function LoginPage() {
         <Typography variant="h5" className="auth-title">
           Sign in to ACME Facilities
         </Typography>
+        {notice && !error && (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            {notice}
+          </Alert>
+        )}
         <ErrorAlert message={error} />
         <form onSubmit={handleSubmit} className="flex-col">
           <TextField

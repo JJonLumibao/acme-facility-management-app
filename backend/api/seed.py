@@ -10,7 +10,8 @@ Every demo account uses the password below. Incident histories are replayed thro
 rules as the API (utils/workflow.py), with timestamps spread over the past month relative to "now",
 so response times, timelines, hotspots and workload look realistic whenever the seed is re-run.
 
-In the cloud it also runs automatically, once, on an empty database: see seed_if_empty() and main.py.
+In the cloud it also runs automatically, once, on an empty database (seed_if_empty() in main.py), and facility
+admins can restore the demo data any time from the app's account menu (POST /admin/reset-demo-data).
 """
 import os
 import sys
@@ -223,6 +224,11 @@ INCIDENTS: List[Dict[str, Any]] = [
 def _insert(cur: Any, sql: str, values: tuple) -> int:
     cur.execute(sql + " RETURNING id", values)
     return cur.fetchone()[0]
+
+
+def demo_reset_enabled() -> bool:
+    """Whether admins may reset to demo data from the app: in the cloud demo (SEED_DEMO_DATA) and locally."""
+    return os.getenv("SEED_DEMO_DATA") == "true" or os.getenv("IS_LOCAL", "true") == "true"
 
 
 def seed_if_empty() -> bool:

@@ -166,6 +166,8 @@ export interface Catalog {
   departments: Department[];
   statuses: Array<{ key: IncidentStatus; label: string }>;
   transitions: Record<IncidentStatus, IncidentStatus[]>;
+  /** True for facility admins in demo/local environments: shows the "Reset demo data" action. */
+  demo_reset_enabled?: boolean;
 }
 
 export interface MilestoneStat {

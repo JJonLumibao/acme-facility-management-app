@@ -27,6 +27,8 @@ import BusinessIcon from '@mui/icons-material/Business';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import type { ReactElement } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useCatalog } from '../../context/CatalogContext';
+import ResetDemoDialog from './ResetDemoDialog';
 import AssistantPanel from '../assistant/AssistantPanel';
 import { getEngineer, updateEngineer } from '../../services/engineerService';
 import type { Role } from '../../types';
@@ -49,6 +51,8 @@ export default function AppLayout() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+  const [resetOpen, setResetOpen] = useState(false);
+  const { catalog } = useCatalog();
 
   const isEngineer = user?.role === 'engineer';
   const links = NAV_LINKS.filter((link) => !link.roles || (user && link.roles.includes(user.role)));
@@ -68,6 +72,12 @@ export default function AppLayout() {
     handleMenuClose();
     logout();
     navigate('/login');
+  };
+
+  const handleDemoReset = () => {
+    setResetOpen(false);
+    logout();
+    navigate('/login', { state: { notice: 'Demo data restored. Sign in again.' } });
   };
 
   const toggleAvailability = async () => {
@@ -129,6 +139,19 @@ export default function AppLayout() {
                 <Switch edge="end" size="small" checked={isAvailable} tabIndex={-1} />
               </MenuItem>,
             ]}
+            {catalog?.demo_reset_enabled && [
+              <Divider key="reset-divider" />,
+              <MenuItem
+                key="reset"
+                onClick={() => {
+                  handleMenuClose();
+                  setResetOpen(true);
+                }}
+                sx={{ color: 'error.main' }}
+              >
+                Reset demo data…
+              </MenuItem>,
+            ]}
             <Divider />
             <MenuItem onClick={handleLogout}>Log out</MenuItem>
           </Menu>
@@ -166,6 +189,7 @@ export default function AppLayout() {
       </main>
 
       <AssistantPanel />
+      <ResetDemoDialog open={resetOpen} onClose={() => setResetOpen(false)} onReset={handleDemoReset} />
     </div>
   );
 }

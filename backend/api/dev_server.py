@@ -129,6 +129,10 @@ class AssistantRequest(BaseModel):
     message: Optional[str] = "Where do issues happen most?"
 
 
+class ResetDemoRequest(BaseModel):
+    confirm: Optional[str] = "RESET"
+
+
 class CreateNoteRequest(BaseModel):
     message: Optional[str] = "Its very hot in here"
 
@@ -387,6 +391,13 @@ async def assistant_suggestions(request: Request) -> Response:
 
 @app.post("/assistant", tags=["assistant"], dependencies=AUTH)
 async def assistant(request: Request, payload: AssistantRequest = Body(...)) -> Response:
+    del payload
+    return await _forward(request)
+
+
+# --- admin ---------------------------------------------------------------------------------------
+@app.post("/admin/reset-demo-data", tags=["admin"], dependencies=AUTH)
+async def reset_demo_data(request: Request, payload: ResetDemoRequest = Body(...)) -> Response:
     del payload
     return await _forward(request)
 
